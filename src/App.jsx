@@ -3,7 +3,23 @@ import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Cloud, Clouds, Float, Instances, Instance, OrbitControls, Plane, Sphere, Stars } from "@react-three/drei";
-import { folder, useControls } from "leva";
+// Mocking Leva to remove the UI panel entirely
+const useControls = (name, schema, options) => {
+  const values = {};
+  const extract = (s) => {
+    Object.keys(s).forEach(key => {
+      if (s[key] && typeof s[key] === 'object' && 'value' in s[key]) {
+        values[key] = s[key].value;
+        if (s[key].onChange) s[key].onChange(s[key].value);
+      } else {
+        values[key] = s[key];
+      }
+    });
+  };
+  extract(schema);
+  return values;
+};
+const folder = (schema) => schema;
 import { Bloom, EffectComposer, Noise, TiltShift2, Vignette } from "@react-three/postprocessing";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
