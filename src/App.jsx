@@ -11,6 +11,9 @@ const useControls = (name, schema, options) => {
       if (s[key] && typeof s[key] === 'object' && 'value' in s[key]) {
         values[key] = s[key].value;
         if (s[key].onChange) s[key].onChange(s[key].value);
+      } else if (s[key] && typeof s[key] === 'object' && !Array.isArray(s[key]) && key !== 'genSystemPosition' && key !== 'genSystemRotation' && key !== 'cloud1Bounds' && key !== 'cloud2Bounds' && key !== 'cloud3Bounds' && key !== 'cloud4Bounds') {
+        // If it's a folder or nested object, flatten it
+        extract(s[key]);
       } else {
         values[key] = s[key];
       }
