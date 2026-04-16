@@ -366,16 +366,7 @@ const SolarSystem = () => {
     });
   }, [audioMixer]);
 
-  useGSAP(() => {
-    gsap.to(headphonesCameraRef.current.position, {
-      duration: 2,
-      delay: 1,
-      y: 0,
-      ease: "expo.out",
-      // onUpdate: () => {
-      //   headphonesCameraRef.current.updateMatrixWorld();
-      // },
-    });
+    headphonesCameraRef.current.position.y = 0;
   }, [experienceStarted]);
 
   useFrame(({ clock }, delta) => {
@@ -631,7 +622,7 @@ const Views = () => {
 
     if (preset === "default") {
       gsap.to(camera.position, {
-        duration: 5,
+        duration: 0,
         x: 0,
         y: 3,
         z: 11,
@@ -644,7 +635,7 @@ const Views = () => {
       });
 
       gsap.to(solarSystemRef.rotation, {
-        duration: 5,
+        duration: 0,
         x: 0,
         y: -4.6,
         z: 0,
@@ -652,7 +643,7 @@ const Views = () => {
       });
 
       gsap.to(solarSystemRef.position, {
-        duration: 5,
+        duration: 0,
         x: 0,
         y: 0,
         z: 0,
@@ -1048,7 +1039,6 @@ const App = () => {
       >
         <Scene />
       </Canvas>
-      <Loader />
       <UI />
     </>
   );
